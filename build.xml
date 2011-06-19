@@ -1,0 +1,63 @@
+<project name="ems" basedir="." default="all">
+	<property file="build.properties" />
+	
+	<property name="destdir" value="dest"/>
+	<property name="destdirwar" value="destwar"/>
+	<property name="websrcdir" value="./WebContent"/>
+	<property name="javasrcdir" value="./build/classes"/>
+	
+	<!-- Create two directories -->
+	<target name="mkdir">
+		<mkdir dir="${destdir}"/>
+		<mkdir dir="${destdirwar}"/>
+	</target>	
+	<!-- Copy the WebContent -->
+		<target name="copysrcjsp">
+			<copy todir="${destdirwar}">
+				<fileset dir="${websrcdir}"/>
+			</copy>
+			<move todir="${destdirwar}">
+				<fileset dir="${destdirwar}/web"/>
+			</move>
+		</target>	
+	<!-- Copy the WebContent -->
+	<target name="copywar">
+		<copy todir="${destdir}">
+			<fileset dir="${websrcdir}" />
+		</copy>
+		<move todir="${destdir}">
+			<fileset dir="${destdir}/web"/>
+		</move>
+	</target>	
+
+	<!-- Copy class files -->
+	<target name="copysrc">
+		<mkdir dir="${destdir}/WEB-INF/classes"/>
+		<copy todir="${destdir}/WEB-INF/classes">
+			<fileset dir="${javasrcdir}" />
+		</copy>
+		<copy todir="${destdir}/WEB-INF/lib">
+			<fileset dir="${userlib}" />
+		</copy>
+	</target>	
+	
+	<!-- Delete the files -->
+		<target name="clean">
+				<delete dir="${destdir}"/>
+				<delete dir="${destdirwar}"/>
+		</target>
+	
+	
+	<!-- Generate the war file -->
+	<target name="war">
+		<jar destfile="${destdirwar}/${warname}.war" basedir="${destdir}"/>
+	</target>
+	
+	<!-- Deploy the war to either JBoss or Weblogic -->
+	<target name="deploy">
+		<copy file="${destdirwar}/${warname}.war" todir="${deploydir}"/>
+	</target> 
+	
+	<target name="all" depends="mkdir, copywar, copysrc, war, deploy,clean"></target>
+	
+</project>

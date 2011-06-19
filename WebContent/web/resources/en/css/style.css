@@ -1,0 +1,52 @@
+/*
+      Created by CSS Portal Layout Generator
+	  
+	  http://www.cssportal.com
+	  	  
+*/
+
+* { padding: 0; margin: 0; }
+
+body {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 13px;
+}
+
+p {
+ padding: 10px;
+}
+
+#wrapper { 
+ margin: 0 auto;
+ width: 800px;
+}
+
+#content { 
+ float: left;
+ color: #333;
+ background: #FFFFFF;
+ width: 800px;
+ display: inline;
+}
+
+#header {
+ color: #333;
+ width: 800px;
+ float: left;
+ background: #6B6659;
+}
+
+#footer { 
+ width: 800px;
+ clear: both;
+ color: #333;
+ background: #6B6659;
+}
+
+#navigation {
+ float: left;
+ width: 800px;
+ color: #333;
+ background: #8AA1B6;
+}
+
