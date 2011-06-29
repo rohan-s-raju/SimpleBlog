@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import com.rohan.blog.common.encryptor.Encryptor;
 import com.rohan.blog.delegate.LoginDelegate;
 
 @ManagedBean(name = "loginBean")
@@ -26,7 +27,7 @@ public class LoginBean implements Serializable {
 	public String login() {
 		
 		
-		boolean success = loginDelegate.login(login, password);
+		boolean success = loginDelegate.login(login, Encryptor.encrypt(password));
 		
 		if (success){
 			return "index.xhtml";
