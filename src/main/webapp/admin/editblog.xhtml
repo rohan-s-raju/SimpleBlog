@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<table>
+				<tr>
+					<td><h:outputText value="#{msg['blog.label']}" /></td>
+					<td>
+					<h:inputHidden value="#{blogBean.blogId}"  id="bId" />
+					<h:inputHidden value="#{blogBean.blogCreatedDate}"  id="bCreatedDate" converter="javax.faces.DateTime" />
+					<p:inputText label="Blog Label" id="bLabel"
+							value="#{blogBean.blogLabel}" required="true"
+							requiredMessage="Blog Label required" /> 
+							<br/>
+							<h:message for="bLabel" style="color:red;" />
+					</td>
+				</tr>
+				<tr>
+					<td><h:outputText value="#{msg['blog.content']}" /></td>
+					<td>
+					<p:editor value="#{blogBean.blogContent}" widgetVar="editor" width="500" required="true"
+							requiredMessage="Blog Content required" id="bContent"/>
+						<h:message for="bContent" style="color:red;" />
+						 <h:panelGrid columns="2" style="margin-top:10px">
+							<p:commandButton type="button" value="Clear"
+								onclick="editor.clear()" image="ui-icon ui-icon-close" />
+						</h:panelGrid>
+						 <p:dialog header="Content" widgetVar="dlg" showEffect="fade"
+							hideEffect="fade" modal="true">
+							<h:outputText id="display" value="#{blogBean.blogContent}"
+								escape="false" />
+						</p:dialog> 
+					</td>
+				</tr>
+				<tr>
+					<td>Blog Created Date:</td>
+					<td><h:outputFormat value="#{blogBean.blogCreatedDate}" converter="javax.faces.DateTime"  /></td>
+					
+				</tr>
+			</table>
+			<p>
+				<p:commandButton value="Update Blog"
+					action="#{blogBean.updateBlogDetails}"  ajax="false"/>
+					
+				<p:commandButton action="/index.xhtml?faces-redirect=true" value="Cancel"></p:commandButton>	
+			</p>
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

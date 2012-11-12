@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+<!-- 
+	<terracottaConfig url="10.10.11.38:9510" rejoin="true" /> -->
+
+	<defaultCache eternal="true" maxElementsInMemory="100"
+		overflowToDisk="false">
+		<!-- <terracotta>
+			<nonstop />
+		</terracotta> -->
+	</defaultCache>
+	<cache name="findAllBlogCache" maxElementsInMemory="10" eternal="true"
+		overflowToDisk="false">
+		<!-- <terracotta>
+			<nonstop />
+		</terracotta> -->
+	</cache>
+	<!-- <cache name="messagesCache" maxElementsInMemory="10" eternal="true" 
+		overflowToDisk="false" /> -->
+</ehcache>

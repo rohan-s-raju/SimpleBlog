@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/security 
+       http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<!-- <context:component-scan base-package="com.rohan.blog.*.businessservice, 
+		com.rohan.blog.*.dataaccess, com.rohan.blog.delegate, com.rohan.blog.framework.*.businessservice, 
+		com.rohan.blog.framework.*.dataaccess, com.rohan.blog.framework.security" 
+		/> -->
+
+	<context:component-scan
+		base-package="com.rohan.blog.*.businessservice, 
+    	com.rohan.blog.*.dataaccess, 
+    	com.rohan.blog.delegate" />
+
+	 <context:annotation-config /> 
+
+	<!-- This will ensure that hibernate or jpa exceptions are automatically 
+		translated into Spring's generic DataAccessException hierarchy for those 
+		classes annotated with Repository For example see PersonDaoJpa -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<!-- bean post-processor for JPA annotations -->
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/blog" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="Blog" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+				<property name="showSql" value="true" />
+				<!-- <property name="generateDdl" value="true" /> -->
+			</bean>
+		</property>
+
+	</bean>
+
+	<!-- Transaction Config -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+		
+	<!-- methods or classes needing to run in a complete transaction will
+    be annotated with Transactional -->
+    <!-- <tx:annotation-driven/> -->
+
+	<!-- use declarative transaction management -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	
+	
+	<!-- 
+	resource security 
+	
+	Note: 
+	Access-denied-page is invoked when user is AUTHENTICATED but is not AUTHORIZED to access protected resources.
+	When user is NOT AUTHENTICATED, he is moved into form-login instead of access-denied-page.
+	-->
+	<sec:http auto-config="true" access-denied-page="/accessDenied.xhtml">
+		<sec:form-login login-page="/login.xhtml" />
+		<sec:intercept-url pattern="/admin/**" access="ROLE_ADMIN,ROLE_USER" />
+	</sec:http>
+
+	<!-- 
+	method security 
+	-->
+
+	<sec:global-method-security
+		secured-annotations="enabled" jsr250-annotations="enabled" >		
+	</sec:global-method-security>
+
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider
+			user-service-ref="userDetailsService" />
+	</sec:authentication-manager>
+
+</beans>

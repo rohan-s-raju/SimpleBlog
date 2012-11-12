@@ -1,22 +1,3 @@
 This is a simple blog application using JSF2, Spring3, Spring Security and JPA(Hibernate)
 
-JBoss-4.2.3.GA is the Server used for the development
 
-As Jboss contains the older version of JSF we need to upgrade so that it supports jsf2 and its been provided at this link
-
-http://community.jboss.org/wiki/UpgradeJBossASToJSF2
-
-
-Deploying this Simple Blog app:
-
-Database used is Oracle 10g
-You need to create a user-blog password-blog and run the Sql Script
-
-you need to create a empty folder having the path defined below
-C:/Jar/empty 
-
-
-run the build.xml file
-
-Note: JPA(Hibernate) jars are not added in the lib folder as it is in JBoss server itself 
-(If you are trying to deploy in other server's you need to add the JPA(Hibernate) releated jars) 
