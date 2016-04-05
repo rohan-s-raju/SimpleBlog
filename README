@@ -6,4 +6,6 @@ This is a simple blog application using JSF2, Spring3, Spring Security and JPA(H
 4) mvn tomcat7:run-war (||||| Important to run with "run-war" for the tomcat plugin ||||||)
 
 
+URL: http://localhost:8080/blog/index.xhtml
+
 
