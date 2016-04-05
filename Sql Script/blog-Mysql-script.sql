@@ -1,44 +1,44 @@
 
-CREATE DATABASE  IF NOT EXISTS blog;
+create database  if not exists blog;
 
-USE blog;
+use blog;
 
-CREATE TABLE BLOG (
-    BLOG_ID            BIGINT(20) NOT NULL AUTO_INCREMENT,
-    BLOG_CONTENT_LABLE VARCHAR(255) NOT NULL,
-    BLOG_CONTENT       VARCHAR(255) NOT NULL,
-    CREATED_DATE       DATE NOT NULL,
-    MODIFIED_DATE      DATE,
-    CONSTRAINT  PK_BLOG PRIMARY KEY (BLOG_ID)
+create table Blog (
+    blog_id            bigint(20) not null auto_increment,
+    blog_content_lable varchar(255) not null,
+    blog_content       varchar(255) not null,
+    created_date       date not null,
+    modified_date      date,
+    constraint  pk_blog primary key (blog_id)
 );
 
-CREATE TABLE ROLE (
- ROLE_ID BIGINT(20) NOT NULL AUTO_INCREMENT,
- NAME VARCHAR(255) NOT NULL,  
- CONSTRAINT PK_ROLE PRIMARY KEY (ROLE_ID)
+create table Role (
+ role_id bigint(20) not null auto_increment,
+ name varchar(255) not null,
+ constraint pk_role primary key (role_id)
 );
 
-CREATE TABLE PERSON (
- PERSON_ID BIGINT(20) NOT NULL AUTO_INCREMENT,
- ROLE_ID BIGINT(20) NOT NULL,
- USERNAME VARCHAR(255),
- PASSWORD VARCHAR(255),
- CONSTRAINT PK_PERSON PRIMARY KEY (PERSON_ID)
+create table Person (
+ person_id bigint(20) not null auto_increment,
+ role_id bigint(20) not null,
+ username varchar(255),
+ password varchar(255),
+ constraint pk_person primary key (person_id)
 );
 
 
 
-ALTER TABLE PERSON ADD(CONSTRAINT FK_PERSON_ROLE_ID
-FOREIGN KEY (ROLE_ID)
-REFERENCES ROLE(ROLE_ID));
+alter table Person add(constraint fk_person_role_id
+foreign key (role_id)
+references Role(role_id));
 
-INSERT INTO ROLE( NAME) VALUES( 'ROLE_ADMIN');
-INSERT INTO ROLE( NAME) VALUES( 'ROLE_USER');
+insert into Role( name) values( 'ROLE_ADMIN');
+insert into Role( name) values( 'ROLE_USER');
 
  /* password=admin  */
-INSERT INTO PERSON( ROLE_ID,USERNAME,PASSWORD) VALUES( '1','admin', '0DPiKuNIrrVmD8IUCuw1hQxNqZc=');
+insert into Person( role_id,username,password) values( '1','admin', '0DPiKuNIrrVmD8IUCuw1hQxNqZc=');
 
 /* password=user  */
-INSERT INTO PERSON( ROLE_ID,USERNAME,PASSWORD) VALUES( '2','user', 'Et6pb+wgWTVmq3VpLJlJWWgzrck=');
+insert into Person( role_id,username,password) values( '2','user', 'Et6pb+wgWTVmq3VpLJlJWWgzrck=');
 
 

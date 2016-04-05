@@ -302,24 +302,15 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
 				<configuration>
-					<outputDirectory>C:\apache-tomcat-6.0.32\webapps</outputDirectory>
+					<port>8080</port>
+					<path>/blog</path>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>C:\apache-tomcat-6.0.32\webapps\blog</directory>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin> -->
 		</plugins>
 	</build>
 	<properties>
